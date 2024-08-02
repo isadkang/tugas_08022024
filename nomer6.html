@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juara Kelas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<!-- <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    #form-container {
+        width: 80%;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .siswa-input {
+        margin-bottom: 15px;
+    }
+
+    .siswa-input label {
+        display: block;
+        margin-top: 10px;
+    }
+
+    .siswa-input input {
+        width: 100%;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background: #5cb85c;
+        color: white;
+        border: none;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #4cae4c;
+    }
+
+    #hasil {
+        width: 80%;
+        margin: auto;
+        margin-top: 20px;
+        padding: 20px;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style> -->
+
+<body>
+    <h1>Cari Juara Kelas</h1>
+    <div id="form-container">
+        <form id="siswaForm">
+            <div class="siswa-input">
+                <label for="nama">Nama:</label>
+                <input type="text" id="nama" name="nama">
+                <label for="mtk">Nilai MTK:</label>
+                <input type="number" id="mtk" name="mtk">
+                <label for="indo">Nilai INDO:</label>
+                <input type="number" id="indo" name="indo">
+                <label for="ingg">Nilai INGG:</label>
+                <input type="number" id="ingg" name="ingg">
+                <label for="dpk">Nilai DPK:</label>
+                <input type="number" id="dpk" name="dpk">
+                <label for="agama">Nilai Agama:</label>
+                <input type="number" id="agama" name="agama">
+                <label for="kehadiran">Kehadiran (%):</label>
+                <input type="number" id="kehadiran" name="kehadiran">
+            </div>
+            <button type="button" onclick="addSiswa()">Tambah Siswa</button>
+        </form>
+        <button type="button" onclick="cariJuara()">Cari Juara</button>
+    </div>
+    <div id="hasil"></div>
+    <script>
+        let siswaList = [];
+
+        function addSiswa() {
+            const nama = document.getElementById('nama').value;
+            const mtk = parseFloat(document.getElementById('mtk').value);
+            const indo = parseFloat(document.getElementById('indo').value);
+            const ingg = parseFloat(document.getElementById('ingg').value);
+            const dpk = parseFloat(document.getElementById('dpk').value);
+            const agama = parseFloat(document.getElementById('agama').value);
+            const kehadiran = parseFloat(document.getElementById('kehadiran').value);
+
+            const siswa = {
+                nama,
+                mtk,
+                indo,
+                ingg,
+                dpk,
+                agama,
+                kehadiran
+            };
+
+            siswaList.push(siswa);
+            alert('Siswa berhasil ditambahkan!');
+            document.getElementById('siswaForm').reset();
+        }
+
+        function cariJuara() {
+            const kandidatJuara = siswaList.filter(siswa => {
+                const totalNilai = siswa.mtk + siswa.indo + siswa.ingg + siswa.dpk + siswa.agama;
+                return totalNilai >= 475 && siswa.kehadiran === 100;
+            });
+
+            let hasilHTML = '<h2>Daftar Kandidat Juara Kelas:</h2>';
+            if (kandidatJuara.length > 0) {
+                hasilHTML += '<ul>';
+                kandidatJuara.forEach(siswa => {
+                    hasilHTML += `<li>${siswa.nama} - Total Nilai: ${siswa.mtk + siswa.indo + siswa.ingg + siswa.dpk + siswa.agama}</li>`;
+                });
+                hasilHTML += '</ul>';
+            } else {
+                hasilHTML += '<p>Tidak ada kandidat juara kelas.</p>';
+            }
+
+            document.getElementById('hasil').innerHTML = hasilHTML;
+        }
+
+    </script>
+</body>
+
+</html>
